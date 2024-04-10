@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/course_management
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=test
+  db:
+    image: postgres
+    restart: always
+    environment:
+        POSTGRES_DB: course_management
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: test
+    ports:
+      - 5432:5432
